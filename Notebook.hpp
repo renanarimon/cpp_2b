@@ -1,34 +1,15 @@
-#ifndef NOTEBOOK_HPP
-#define NOTEBOOK_HPP
+#pragma once
 #include <iostream>
 #include <unordered_map>
-#include <vector>
-#include <initializer_list>
 #include "Direction.hpp"
+#include<exception>
 using namespace std;
-
 namespace ariel
 {
-    class Page
-    {
-    private:
-        int _last;
-        unordered_map<int, char*> _page;
-    public:
-        Page();
-        Page(int lines);
-        ~Page();
-        unordered_map<int, char*> getPage() const;
-        void setPage(int lines);
-        void show(int start, int end) const;
-    };
-
     class Notebook
     {
     private:
-        int _last;
-        typedef tuple<int, int> location;
-        unordered_map<location, char*> _notebook;
+        unordered_map<int, unordered_map<int, char[100]>> _notebook;
 
     public:
         Notebook();
@@ -39,7 +20,4 @@ namespace ariel
         void show(int page) const;
     };
 
-
-    
 }
-#endif
