@@ -14,9 +14,15 @@ SOURCES=$(wildcard $(SOURCE_PATH)/*.cpp)
 HEADERS=$(wildcard $(SOURCE_PATH)/*.hpp)
 OBJECTS=$(subst sources/,objects/,$(subst .cpp,.o,$(SOURCES)))
 
-run: test
+run: test1 test2 test3
 
-test: TestRunner.o Test.o $(OBJECTS)
+test1: TestRunner.o StudentTest1.o  $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+test2: TestRunner.o StudentTest2.o  $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+test3: TestRunner.o StudentTest3.o  $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 %.o: %.cpp $(HEADERS)
@@ -24,6 +30,15 @@ test: TestRunner.o Test.o $(OBJECTS)
 
 $(OBJECT_PATH)/%.o: $(SOURCE_PATH)/%.cpp $(HEADERS)
 	$(CXX) $(CXXFLAGS) --compile $< -o $@
+
+StudentTest1.cpp:  # Aviad Gilboa
+	curl https://raw.githubusercontent.com/Avgilboa/notebook-a/main/Test.cpp > $@
+
+StudentTest2.cpp:  # Orel Zelmer
+	curl https://raw.githubusercontent.com/orelz890/Ex2_cpp_a/main/Test.cpp > $@
+
+StudentTest3.cpp:  # Ofri Tavor
+	curl https://raw.githubusercontent.com/Unusual55/CPP_Ex2_a/main/Test.cpp > $@
 
 tidy:
 	clang-tidy $(SOURCES) $(TIDY_FLAGS) --
@@ -33,4 +48,4 @@ valgrind: test
 
 clean:
 	rm -f $(OBJECTS) *.o test* 
-	rm -f StudentTest*.cpp
+	rm -f StudentTest*.cpps

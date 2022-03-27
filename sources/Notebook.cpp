@@ -28,6 +28,12 @@ namespace ariel
             throw out_of_range("text is out of line range");
         }
 
+        if (col>=HUNRED || col<0)
+        {
+            throw out_of_range("text is out of line range");
+        }
+        
+
         /*can't write '~'*/
         if ((text.find('~') != string::npos))
         {
@@ -50,7 +56,10 @@ namespace ariel
         /*try to read more than 100 chars in Horizontal (len+col < 100)*/
         if (len + col > HUNRED && dir == Direction::Horizontal)
         {
-            throw out_of_range("can't read out of line");
+            throw out_of_range("can't read/erase out of line");
+        }
+        if(col >= HUNRED || col<0){
+            throw out_of_range("can't read/erase out of line");
         }
         return true;
     }
@@ -68,7 +77,8 @@ namespace ariel
                 for (size_t i = (size_t)col, j = 0; i < text.length() + (size_t)col; i++, j++)
                 {
                     ch = this->_notebook[page][row][i];
-                    if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~')
+                    // if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~')
+                    if(isprint(ch) != 0 && ch != '_')
                     {
                         throw runtime_error("can't write on written/erased place");
                         exit(0);
@@ -110,10 +120,15 @@ namespace ariel
                     {
                         ch = '_';
                     }
-                    if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~')
+                    // if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~' || ch == ' ')
+                    // {
+                    //     ans.push_back(ch);
+                    // }
+                    if (isprint(ch))
                     {
                         ans.push_back(ch);
                     }
+                    
                     else
                     {
                         ans.push_back('_');
@@ -132,7 +147,8 @@ namespace ariel
                     {
                         ch = '_';
                     }
-                    if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~')
+                    // if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~')
+                    if(isprint(ch))
                     {
                         ans.push_back(ch);
                     }
