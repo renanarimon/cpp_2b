@@ -23,7 +23,7 @@ namespace ariel
         }
 
         /*string length + col > 100*/
-        if (int(text.length()) + col > HUNRED)
+        if (int(text.length()) + col > HUNRED && dir == Direction::Horizontal)
         {
             throw out_of_range("text is out of line range");
         }
@@ -77,7 +77,6 @@ namespace ariel
                 for (size_t i = (size_t)col, j = 0; i < text.length() + (size_t)col; i++, j++)
                 {
                     ch = this->_notebook[page][row][i];
-                    // if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~')
                     if(isprint(ch) != 0 && ch != '_')
                     {
                         throw runtime_error("can't write on written/erased place");
@@ -120,11 +119,8 @@ namespace ariel
                     {
                         ch = '_';
                     }
-                    // if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~' || ch == ' ')
-                    // {
-                    //     ans.push_back(ch);
-                    // }
-                    if (isprint(ch))
+
+                    if (isprint(ch) !=0)
                     {
                         ans.push_back(ch);
                     }
@@ -147,8 +143,7 @@ namespace ariel
                     {
                         ch = '_';
                     }
-                    // if (isdigit(ch) != 0 || isalpha(ch) != 0 || ch == '~')
-                    if(isprint(ch))
+                    if(isprint(ch) != 0)
                     {
                         ans.push_back(ch);
                     }
